@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="completed_bar_height" format="dimension" />
+    <attr name="completed_bar_color" format="color" />
+    <attr name="uncompleted_bar_color" format="color" />
+    <attr name="uncompleted_bar_height" format="dimension" />
+    <attr name="progress_text_size" format="dimension" />
+    <attr name="progress_text_color" format="color" />
+    <attr name="progress_text_padding" format="dimension" />
+    <!--加载中进度条...-->
+    <attr name="loading_radius" format="dimension" />
+    <attr name="loading_width" format="dimension" />
+    <attr name="loading_color" format="color" />
+
+
+    <declare-styleable name="HorizontalProgressBar">
+        <attr name="completed_bar_height" />
+        <attr name="completed_bar_color" />
+        <attr name="uncompleted_bar_color" />
+        <attr name="uncompleted_bar_height" />
+        <attr name="progress_text_size" />
+        <attr name="progress_text_color" />
+        <attr name="progress_text_padding" />
+    </declare-styleable>
+    <declare-styleable name="LoadingBar">
+        <attr name="loading_radius" />
+        <attr name="loading_width" />
+        <attr name="loading_color" />
+    </declare-styleable>
+</resources>
