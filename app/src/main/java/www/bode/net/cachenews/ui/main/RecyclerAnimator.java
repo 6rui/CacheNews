@@ -500,7 +500,7 @@ public class RecyclerAnimator extends SimpleItemAnimator {
         // this will trigger end callback which should set properties to their
         // target values.
         ViewCompat.animate(view).cancel();
-        // TODO if some other animations are chained to end, how do we cancel
+        // TODO if some other animations are chained to end, how do weMemory cancel
         // them as well?
         for (int i = mPendingMoves.size() - 1; i >= 0; i--) {
             MoveInfo moveInfo = mPendingMoves.get(i);

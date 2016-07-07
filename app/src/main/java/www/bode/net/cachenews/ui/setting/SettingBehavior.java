@@ -1,4 +1,4 @@
-package www.bode.net.cachenews.ui.pager;
+package www.bode.net.cachenews.ui.setting;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;

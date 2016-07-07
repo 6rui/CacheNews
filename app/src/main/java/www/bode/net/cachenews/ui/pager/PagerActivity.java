@@ -1,6 +1,8 @@
 package www.bode.net.cachenews.ui.pager;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -15,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import www.bode.net.cachenews.R;
+import www.bode.net.cachenews.ui.setting.SettingActivity;
 
 /**
  * viewpager+tab Created by Liu on 2016-07-01.
@@ -32,10 +35,12 @@ public class PagerActivity extends AppCompatActivity implements
     
     private NavigationView navigation;
     
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pager);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
         tab = (TabLayout) findViewById(R.id.tab);
         viewPager = (ViewPager) findViewById(R.id.pager);
         toolbar = ((Toolbar) findViewById(R.id.toolbar));

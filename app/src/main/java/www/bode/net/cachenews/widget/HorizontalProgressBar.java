@@ -1,4 +1,4 @@
-package www.bode.net.cachenews.ui.main;
+package www.bode.net.cachenews.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;

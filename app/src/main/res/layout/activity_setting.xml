@@ -15,7 +15,7 @@
         android:text="越努力，越幸运"
         android:textColor="@color/colorAccent"
         android:textSize="28sp"
-        app:layout_behavior="www.bode.net.cachenews.ui.pager.SettingBehavior" />
+        app:layout_behavior="www.bode.net.cachenews.ui.setting.SettingBehavior" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
