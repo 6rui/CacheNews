@@ -15,8 +15,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import java.util.List;
 
 import www.bode.net.cachenews.R;
+import www.bode.net.cachenews.model.News;
+import www.bode.net.cachenews.model.WxNews;
+import www.bode.net.cachenews.request.Request;
+import www.bode.net.cachenews.ui.main.MainActivity;
 import www.bode.net.cachenews.ui.setting.SettingActivity;
 
 /**
@@ -41,11 +48,7 @@ public class PagerActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pager);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
-        tab = (TabLayout) findViewById(R.id.tab);
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        toolbar = ((Toolbar) findViewById(R.id.toolbar));
-        drawer = ((DrawerLayout) findViewById(R.id.drawer));
-        navigation = ((NavigationView) findViewById(R.id.navigation));
+        init();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
@@ -59,6 +62,16 @@ public class PagerActivity extends AppCompatActivity implements
         viewPager.setAdapter(adapter);
         tab.setupWithViewPager(viewPager);
         navigation.setNavigationItemSelectedListener(this);
+        
+    }
+    
+    private void init() {
+        tab = (TabLayout) findViewById(R.id.tab);
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        toolbar = ((Toolbar) findViewById(R.id.toolbar));
+        drawer = ((DrawerLayout) findViewById(R.id.drawer));
+        navigation = ((NavigationView) findViewById(R.id.navigation));
+        
     }
     
     @Override
@@ -76,9 +89,15 @@ public class PagerActivity extends AppCompatActivity implements
                         .show();
                 break;
             case R.id.setting:
-                startActivity(new Intent(PagerActivity.this,SettingActivity.class));
+                startActivity(new Intent(PagerActivity.this,
+                                         SettingActivity.class));
+                break;
+            case R.id.tel:
+                startActivity(new Intent(PagerActivity.this,
+                                         MainActivity.class));
                 break;
         }
         return true;
     }
+    
 }

@@ -12,19 +12,20 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import rx.Observable;
 import www.bode.net.cachenews.R;
 import www.bode.net.cachenews.model.News;
 import www.bode.net.cachenews.request.Request;
 
-public class MainActivity extends AppCompatActivity
-                          implements AppBarLayout.OnOffsetChangedListener {
+public class MainActivity extends AppCompatActivity implements
+                          AppBarLayout.OnOffsetChangedListener,
+                          Request.RequestListener,
+                          MainAdapter.OnItemClickListener {
     private EditText search;
     
     private AppBarLayout appbar;
     
     private RecyclerView recycler;
-    
-    private ContentLoadingProgressBar loadingBar;
     
     private String searchKey;
     
@@ -32,42 +33,17 @@ public class MainActivity extends AppCompatActivity
     
     private boolean isRequest = false;
     
+    private MainAdapter adapter;
+    
+    private static final String APP_KEY = "56fa863926e60793dc9a2b03d7de64f0";
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        request.setRequestListener(new Request.RequestListener() {
-            
-            @Override
-            public void succeed(News news) {
-                
-                List<News.ResultBean> resultBean = news.getResult();
-                final MainAdapter adapter = new MainAdapter(resultBean);
-                
-                recycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                RecyclerAnimator animator = new RecyclerAnimator();
-                recycler.setItemAnimator(animator);
-                adapter.setOnItemClickListener(new MainAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int position) {
-                        adapter.notifyItemRemoved(position);
-                        Toast.makeText(MainActivity.this,
-                                       position + "",
-                                       Toast.LENGTH_SHORT)
-                             .show();
-                    }
-                });
-                recycler.setAdapter(adapter);
-            }
-            
-            @Override
-            public void failed() {
-                Toast.makeText(MainActivity.this, "请求失败", Toast.LENGTH_SHORT)
-                     .show();
-            }
-        });
-            }
+        
+    }
     
     /**
      * 初始化
@@ -75,9 +51,7 @@ public class MainActivity extends AppCompatActivity
     private void init() {
         search = (EditText) findViewById(R.id.search_word);
         recycler = (RecyclerView) findViewById(R.id.recycler);
-        loadingBar = (ContentLoadingProgressBar) findViewById(R.id.loading_bar);
         appbar = (AppBarLayout) findViewById(R.id.appbar);
-        request = Request.getInstance(this);
         appbar.addOnOffsetChangedListener(this);
     }
     
@@ -89,14 +63,43 @@ public class MainActivity extends AppCompatActivity
             if (search != null) {
                 searchKey = search.getText().toString();
             }
-            loadingBar.show();
             if (!isRequest) {
-                request.requestUrl(searchKey);
+                request = Request.getInstance();
+                request.setRequestListener(this);
+                request.requestUrl(request.requestAPI("http://op.juhe.cn/")
+                                          .getTopMovie(searchKey,
+                                                       APP_KEY,
+                                                       null));
                 isRequest = true;
             }
         }
         if (verticalOffset == 0) {
             isRequest = false;
         }
+    }
+    
+    @Override
+    public void succeed(Object o) {
+        News news = (News) o;
+        List<News.ResultBean> resultBean = news.getResult();
+        adapter = new MainAdapter(resultBean);
+        recycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        RecyclerAnimator animator = new RecyclerAnimator();
+        recycler.setItemAnimator(animator);
+        adapter.setOnItemClickListener(this);
+        recycler.setAdapter(adapter);
+        request = null;
+    }
+    
+    @Override
+    public void failed() {
+        Toast.makeText(MainActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+    }
+    
+    @Override
+    public void onItemClick(int position) {
+        adapter.notifyItemRemoved(position);
+        Toast.makeText(MainActivity.this, position + "", Toast.LENGTH_SHORT)
+             .show();
     }
 }
