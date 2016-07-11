@@ -5,17 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_coordinator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/colorPrimary"
-        android:padding="8dp"
-        android:text="越努力，越幸运"
-        android:textColor="@color/colorAccent"
-        android:textSize="28sp"
-        app:layout_behavior="www.bode.net.cachenews.ui.setting.SettingBehavior" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -30,5 +19,17 @@
 借代就是借此事物代替彼事物。它与比拟有相似之处，但又有所不同，不同之处在于：比拟一般是比的和被比的事物都是具体的、可见的；而借代却是一方具体，一方较为抽象，在具体与抽象之间架起桥梁，使诗歌的形象更为鲜明、突出，以引发读者的联想。这也就是艾青所说的“给思想以翅膀，给感情以衣裳，给声音以彩色，使流逝变幻者凝形。” 塑造诗歌形象，不仅可以运用视角所摄取的素材去描绘画面，还可以运用听觉、触觉等感官所获得的素材，从多方面去体现形象，做到有声有色，生动新颖。唐代诗人贾岛骑在毛驴上吟出“鸟宿池边树，僧推月下门”，但又觉得用“僧敲月下门”亦可。究竟是“推”还是“敲”，他拿不定主意，便用手作推敲状，不料毛驴挡住一位大官的去路，此人乃大文豪韩愈，当侍卫将贾岛带到他的马前，贾岛据实相告，韩愈沉思良久，说还是用敲字较好。因为“敲”有声音，在深山月夜，有一、二记敲门声，便使得那种情景“活”起来，也更显得环境的寂静了。前述《枫桥夜泊》的“乌啼”和“钟声”，也是这首诗的点睛之笔。还有白居易的《琵琶行》中的音乐描写，“大珠小珠落玉盘”一段，更是十分逼真，异常精彩！现代的如黄河浪的《晨曲》：“还有那尊礁石/在固执地倾听/风声雨声涛声之外/隐隐约约的/黎明/灵泉寺的晨钟/恰似鼓山涌泉的/悠远回应/淡淡淡淡的敲落/几颗疏星/而涨红花冠的/雄劲的鸡鸣/仿佛越海而来/啼亮一天朝霞/如潮涌。这首诗也写得很好。所以我们如果掌握了用声音塑造形象的手法，那将为诗歌创作开拓一个更加广阔的领域。无论是比拟、夸张或借代，都有赖于诗人对客观事物进行敏锐的观察，融入自己的情感，加以大胆的想象，甚至幻想。可以这样说，无论是浪漫派也好，写实派也好，没有想象（幻想），便不成其为诗人。比如，以豪放著称的李白，固然想象丰富，诗风雄奇，而以写实著称的杜甫，也写出了诸如“安得广厦千万间……何时眼前突兀见此屋……”（《茅屋为秋风所破歌》）和“香雾云鬟湿，清辉玉臂寒。何时倚虚幌，双照泪痕乾。”（《月夜》）等等浮想联翩的佳作。[4] "
             android:textSize="16sp" />
     </android.support.v4.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/tv_coordinator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/selector_pager_item"
+        android:padding="8dp"
+        android:text="越努力，越幸运"
+        android:textColor="@color/colorPrimary"
+        android:textSize="28sp"
+        app:layout_behavior="www.bode.net.cachenews.ui.setting.SettingBehavior" />
 
 </android.support.design.widget.CoordinatorLayout>

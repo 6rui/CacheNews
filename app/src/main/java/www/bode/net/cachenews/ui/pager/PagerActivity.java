@@ -1,6 +1,7 @@
 package www.bode.net.cachenews.ui.pager;
 
 import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,8 +14,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import java.util.List;
@@ -46,6 +50,15 @@ public class PagerActivity extends AppCompatActivity implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // activity之间切换的动画
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        Transition explode =
+                           TransitionInflater.from(this)
+                                             .inflateTransition(R.transition.explode);
+        getWindow().setExitTransition(explode);
+        getWindow().setEnterTransition(explode);
+        getWindow().setReenterTransition(explode);
+        
         setContentView(R.layout.activity_pager);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
         init();
@@ -62,7 +75,6 @@ public class PagerActivity extends AppCompatActivity implements
         viewPager.setAdapter(adapter);
         tab.setupWithViewPager(viewPager);
         navigation.setNavigationItemSelectedListener(this);
-        
     }
     
     private void init() {
@@ -74,6 +86,7 @@ public class PagerActivity extends AppCompatActivity implements
         
     }
     
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -90,11 +103,14 @@ public class PagerActivity extends AppCompatActivity implements
                 break;
             case R.id.setting:
                 startActivity(new Intent(PagerActivity.this,
-                                         SettingActivity.class));
+                                         SettingActivity.class),
+                              ActivityOptions.makeSceneTransitionAnimation(this)
+                                             .toBundle());
                 break;
             case R.id.tel:
                 startActivity(new Intent(PagerActivity.this,
                                          MainActivity.class));
+                overridePendingTransition(R.anim.scale_out, R.anim.scale_in);
                 break;
         }
         return true;

@@ -20,7 +20,6 @@ public class Request {
     
     public RequestListener mRequestListener;
     
-
     /**
      * 对外接口
      */
@@ -62,10 +61,12 @@ public class Request {
                   .subscribe(new Subscriber<Object>() {
                       @Override
                       public void onCompleted() {
+                          
                           Toast.makeText(CacheApplication.getContext(),
-                                         "请求成功",
+                                         "网络请求成功!",
                                          Toast.LENGTH_SHORT)
                                .show();
+                          
                       }
                       
                       @Override

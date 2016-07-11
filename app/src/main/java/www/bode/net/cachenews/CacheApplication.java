@@ -11,7 +11,8 @@ public class CacheApplication extends Application {
     
     @Override
     public void onCreate() {
-        context = getApplicationContext();
+        if (context == null)
+            context = getApplicationContext();
     }
     
     public static Context getContext() {

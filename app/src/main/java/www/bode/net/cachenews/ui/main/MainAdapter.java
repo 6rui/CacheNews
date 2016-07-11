@@ -66,12 +66,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public int getItemCount() {
         return mNewses.size();
     }
-
+    
     @Override
     public int getItemViewType(int position) {
         return super.getItemViewType(position);
     }
-
+    
     class ViewHolder extends RecyclerView.ViewHolder
                      implements View.OnClickListener {
         public ImageView imageView;

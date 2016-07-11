@@ -64,6 +64,7 @@ public class RecyclerAdapter extends
         
         public RecyclerViewHolder(View itemView) {
             super(itemView);
+            itemView.setBackgroundResource(R.drawable.selector_pager_item);
             title = (TextView) itemView.findViewById(R.id.title);
             source = (TextView) itemView.findViewById(R.id.source);
             image = ((ImageView) itemView.findViewById(R.id.image));

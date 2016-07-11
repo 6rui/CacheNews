@@ -3,12 +3,14 @@ package www.bode.net.cachenews.ui.pager;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,18 +47,31 @@ public class PagerFragment extends Fragment implements Request.RequestListener {
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new RecyclerAdapter(getContext(), list);
         recycler.setAdapter(adapter);
-        recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recycler.addOnItemTouchListener(new OnRecyclerItemClickListener(recycler) {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
+            public void onItemClick(RecyclerView.ViewHolder vh) {
+                Intent intent = new Intent(getActivity(),
+                                           NewsDetailActivity.class);
+                intent.putExtra("url",
+                                list.get(vh.getAdapterPosition()).getUrl());
+                startActivity(intent);
             }
-
+        });
+        recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            int pager = 1;
+            
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (ViewCompat.canScrollVertically(recyclerView,1)){
+            public void onScrollStateChanged(RecyclerView recyclerView,
+                                             int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE
+                    && ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition()
+                       + 1 == recyclerView.getAdapter().getItemCount()) {
                     request.requestUrl(request.requestAPI("http://v.juhe.cn/")
-                            .getWXNews(2, 20, APP_KEY, null));
+                                              .getWXNews(++pager,
+                                                         20,
+                                                         APP_KEY,
+                                                         null));
                 }
             }
         });
@@ -64,6 +79,7 @@ public class PagerFragment extends Fragment implements Request.RequestListener {
     }
     
     @Override
+    
     public void succeed(Object o) {
         WxNews news = (WxNews) o;
         list.addAll(news.getResult().getList());
