@@ -29,6 +29,7 @@ import www.bode.net.cachenews.model.WxNews;
 import www.bode.net.cachenews.request.Request;
 import www.bode.net.cachenews.ui.main.MainActivity;
 import www.bode.net.cachenews.ui.setting.SettingActivity;
+import www.bode.net.cachenews.ui.welcome.WelcomeActivity;
 
 /**
  * viewpager+tab Created by Liu on 2016-07-01.
@@ -112,6 +113,9 @@ public class PagerActivity extends AppCompatActivity implements
                                          MainActivity.class));
                 overridePendingTransition(R.anim.scale_out, R.anim.scale_in);
                 break;
+            case R.id.welcome:
+                startActivity(new Intent(PagerActivity.this,
+                                         WelcomeActivity.class));
         }
         return true;
     }

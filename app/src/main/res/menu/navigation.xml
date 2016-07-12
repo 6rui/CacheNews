@@ -12,5 +12,8 @@
         android:id="@+id/setting"
         android:icon="@mipmap/ic_setting"
         android:title="系统设置" />
+    <item
+        android:id="@+id/welcome"
+        android:title="欢迎页" />
 
 </menu>
