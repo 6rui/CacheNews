@@ -68,20 +68,26 @@ public class CircleImage extends ImageView {
             double temp = (height * bitmapWidth) / bitmapHeight;
             rectWidth = (int) temp;
         }
+        else if (bitmapWidth > width && bitmapHeight > height) {
+            double tempWidth = width * 1f / bitmapWidth;
+            double tempHeight = height * 1f / bitmapHeight;
+            rectWidth = (int) (Math.min(tempWidth, tempHeight) * bitmapWidth);
+            rectHeight = (int) (Math.min(tempWidth, tempHeight) * bitmapHeight);
+            
+        }
         else {
             rectWidth = bitmapWidth;
             rectHeight = bitmapHeight;
         }
         // 根据缩放后的尺寸确定照片的大小
-        RectF rect =
-                   new RectF((width - rectWidth) / 2,
+        Rect rect = new Rect((width - rectWidth) / 2,
                              (height - rectHeight) / 2,
-                             rectWidth+(width - rectWidth) / 2,
+                             rectWidth + (width - rectWidth) / 2,
                              rectHeight + (height - rectHeight) / 2);
         RectF rectCircle = new RectF((width - rectWidth) / 2,
-                                     (height - rectHeight) / 2,
+                                     (height - rectWidth) / 2,
                                      rectWidth + (width - rectWidth) / 2,
-                                     rectWidth + (height - rectHeight) / 2);
+                                     rectWidth + (height - rectWidth) / 2);
         int layerId = canvas.saveLayer(rectCircle, null, Canvas.ALL_SAVE_FLAG);
         canvas.drawBitmap(bitmap,
                           new Rect(0, 0, bitmapWidth, bitmapHeight),
@@ -91,6 +97,23 @@ public class CircleImage extends ImageView {
         path.addOval(rectCircle, Path.Direction.CCW);
         canvas.drawPath(path, paint);
         canvas.restoreToCount(layerId);
+        drawRing(canvas, rectCircle);
+    }
+    
+    /**
+     * 画圆形图片周围的圆环
+     */
+    
+    private void drawRing(Canvas canvas, RectF rectCircle) {
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        RectF ring = new RectF(rectCircle.left + 5,
+                               rectCircle.top + 5,
+                               rectCircle.right - 5,
+                               rectCircle.bottom - 5);
+        paint.setColor(Color.BLUE);
+        paint.setStrokeWidth(10);
+        paint.setStyle(Paint.Style.STROKE);
+        canvas.drawOval(ring, paint);
     }
     
 }
