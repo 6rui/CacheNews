@@ -1,5 +1,8 @@
 package www.bode.net.cachenews.ui.pager;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -19,14 +22,9 @@ import android.transition.TransitionInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.Toast;
-
-import java.util.List;
+import android.widget.ImageView;
 
 import www.bode.net.cachenews.R;
-import www.bode.net.cachenews.model.News;
-import www.bode.net.cachenews.model.WxNews;
-import www.bode.net.cachenews.request.Request;
 import www.bode.net.cachenews.ui.main.MainActivity;
 import www.bode.net.cachenews.ui.setting.SettingActivity;
 import www.bode.net.cachenews.ui.welcome.WelcomeActivity;
@@ -34,8 +32,10 @@ import www.bode.net.cachenews.ui.welcome.WelcomeActivity;
 /**
  * viewpager+tab Created by Liu on 2016-07-01.
  */
+@TargetApi(Build.VERSION_CODES.M)
 public class PagerActivity extends AppCompatActivity implements
-                           NavigationView.OnNavigationItemSelectedListener {
+                           NavigationView.OnNavigationItemSelectedListener,
+                           View.OnClickListener {
     
     private TabLayout tab;
     
@@ -47,7 +47,18 @@ public class PagerActivity extends AppCompatActivity implements
     
     private NavigationView navigation;
     
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private ImageView menu;
+    
+    private ImageView main;
+    
+    private ImageView mine;
+    
+    private ImageView news;
+    
+    private ImageView note;
+    
+    private boolean isOpening;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +87,12 @@ public class PagerActivity extends AppCompatActivity implements
         viewPager.setAdapter(adapter);
         tab.setupWithViewPager(viewPager);
         navigation.setNavigationItemSelectedListener(this);
+        // 浮动按钮监听
+        menu.setOnClickListener(this);
+        main.setOnClickListener(this);
+        mine.setOnClickListener(this);
+        news.setOnClickListener(this);
+        note.setOnClickListener(this);
     }
     
     private void init() {
@@ -84,7 +101,12 @@ public class PagerActivity extends AppCompatActivity implements
         toolbar = ((Toolbar) findViewById(R.id.toolbar));
         drawer = ((DrawerLayout) findViewById(R.id.drawer));
         navigation = ((NavigationView) findViewById(R.id.navigation));
-        
+        menu = ((ImageView) findViewById(R.id.menu));
+        main = ((ImageView) findViewById(R.id.menu_main));
+        mine = ((ImageView) findViewById(R.id.menu_mine));
+        news = ((ImageView) findViewById(R.id.menu_news));
+        note = ((ImageView) findViewById(R.id.menu_note));
+        isOpening = false;
     }
     
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -118,6 +140,87 @@ public class PagerActivity extends AppCompatActivity implements
                                          WelcomeActivity.class));
         }
         return true;
+    }
+    
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.menu:
+                if (!isOpening) {
+                    openCircleMenu();
+                    isOpening = !isOpening;
+                }
+                else {
+                    closeCircleMenu();
+                    isOpening = !isOpening;
+                }
+                break;
+            case R.id.menu_main:
+                startActivity(new Intent(PagerActivity.this,
+                                         MainActivity.class));
+                break;
+            case R.id.menu_mine:
+                startActivity(new Intent(PagerActivity.this,
+                                         SettingActivity.class));
+                break;
+            case R.id.menu_news:
+                break;
+            case R.id.menu_note:
+                break;
+        }
+    }
+    
+    /**
+     * 展开圆形菜单栏
+     */
+    private void openCircleMenu() {
+        main.setVisibility(View.VISIBLE);
+        mine.setVisibility(View.VISIBLE);
+        news.setVisibility(View.VISIBLE);
+        note.setVisibility(View.VISIBLE);
+        ObjectAnimator.ofFloat(main, "translationY", 0, -200f)
+                      .setDuration(400)
+                      .start();
+        ObjectAnimator.ofFloat(mine, "translationY", 0, -400f)
+                      .setDuration(400)
+                      .start();
+        ObjectAnimator.ofFloat(news, "translationY", 0, -600f)
+                      .setDuration(400)
+                      .start();
+        ObjectAnimator.ofFloat(note, "translationY", 0, -800f)
+                      .setDuration(400)
+                      .start();
+    }
+    
+    /**
+     * 关闭圆形菜单栏
+     */
+    private void closeCircleMenu() {
+        ObjectAnimator.ofFloat(main, "translationY", -200f, 0)
+                      .setDuration(400)
+                      .start();
+        ObjectAnimator.ofFloat(mine, "translationY", -400f, 0)
+                      .setDuration(400)
+                      .start();
+        ObjectAnimator.ofFloat(news, "translationY", -600f, 0)
+                      .setDuration(400)
+                      .start();
+        ObjectAnimator anim = ObjectAnimator.ofFloat(note,
+                                                     "translationY",
+                                                     -800f,
+                                                     0);
+        anim.addListener(new AnimatorListenerAdapter() {
+            
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                main.setVisibility(View.INVISIBLE);
+                mine.setVisibility(View.INVISIBLE);
+                news.setVisibility(View.INVISIBLE);
+                note.setVisibility(View.INVISIBLE);
+            }
+        });
+        anim.setDuration(400).start();
+        
     }
     
 }

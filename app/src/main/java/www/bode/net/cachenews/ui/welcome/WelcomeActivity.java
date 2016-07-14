@@ -1,5 +1,6 @@
 package www.bode.net.cachenews.ui.welcome;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import www.bode.net.cachenews.R;
+import www.bode.net.cachenews.ui.pager.PagerActivity;
 
 public class WelcomeActivity extends AppCompatActivity
         implements ViewPager.OnPageChangeListener {
@@ -25,7 +27,7 @@ public class WelcomeActivity extends AppCompatActivity
                 new WelcomePagerAdapter(this,
                         new int[]{R.mipmap.ic_liuss1,
                                 R.mipmap.ic_liuss2,
-                                R.mipmap.ic_liuss3});
+                                R.mipmap.ic_liuss3, 0});
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(this);
     }
@@ -34,10 +36,12 @@ public class WelcomeActivity extends AppCompatActivity
     public void onPageScrolled(int position,
                                float positionOffset,
                                int positionOffsetPixels) {
-        int centerX = (int) (circleImage.getX() + circleImage.getWidth() / 2);
-        int centerY = (int) (circleImage.getY() + circleImage.getHeight() / 2);
         ViewCompat.animate(circleImage).rotation(positionOffsetPixels / 1080f * 360 + position * 360).setDuration(100).start();
         Log.i("offset", "offset: " + positionOffset + "、" + positionOffsetPixels);
+        if (position == 2 && positionOffsetPixels > 500) {
+            startActivity(new Intent(WelcomeActivity.this, PagerActivity.class));
+            finish();
+        }
 
     }
 
@@ -48,6 +52,5 @@ public class WelcomeActivity extends AppCompatActivity
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
     }
 }

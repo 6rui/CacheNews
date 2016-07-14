@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CacheNews</string>
+    <string name="weather_search_city">请输入您要查询的城市</string>
+    <string name="city">城市</string>
+    <string name="search">查询</string>
+    <string name="weather_sk">当前实况天气</string>
 </resources>

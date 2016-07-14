@@ -26,9 +26,11 @@ public class WelcomePagerAdapter extends PagerAdapter {
                                             new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                                                        ViewGroup.LayoutParams.MATCH_PARENT);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        
         imageView.setImageResource(pics[position]);
         container.addView(imageView, layoutParams);
         return imageView;
+        
     }
     
     @Override
@@ -38,7 +40,7 @@ public class WelcomePagerAdapter extends PagerAdapter {
     
     @Override
     public int getCount() {
-        return pics.length;
+        return pics.length + 1;
     }
     
     @Override

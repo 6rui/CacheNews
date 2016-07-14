@@ -1,9 +1,11 @@
 package www.bode.net.cachenews.request;
 
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 import www.bode.net.cachenews.model.News;
+import www.bode.net.cachenews.model.WeatherInfo;
 import www.bode.net.cachenews.model.WxNews;
 
 /**
@@ -21,6 +23,13 @@ public interface IAPIService {
     Observable<WxNews> getWXNews(@Query("pno") int pno,
                                  @Query("ps") int ps,
                                  @Query("key") String key,
-                                 @Query("dtype") String dtype);
-
+                                 @Query("dtype") String dtype); // 微信推送
+    // 获取天气信息
+    
+    @POST("weather/index")
+    Observable<WeatherInfo> getWeather(@Query("cityname") String cityname,
+                                       @Query("dtype") String dtype,
+                                       @Query("format") int format,
+                                       @Query("key") String key);
+    
 }
