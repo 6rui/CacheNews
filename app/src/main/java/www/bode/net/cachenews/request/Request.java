@@ -73,6 +73,11 @@ public class Request {
                       public void onError(Throwable e) {
                           e.printStackTrace();
                           mRequestListener.failed();
+                          Toast.makeText(CacheApplication.getContext(),
+                                         "请求出错!",
+                                         Toast.LENGTH_SHORT)
+                               .show();
+                          
                       }
                       
                       @Override

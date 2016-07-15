@@ -79,6 +79,12 @@ public class PagerFragment extends Fragment implements Request.RequestListener {
     }
     
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        request = null;
+    }
+    
+    @Override
     
     public void succeed(Object o) {
         WxNews news = (WxNews) o;

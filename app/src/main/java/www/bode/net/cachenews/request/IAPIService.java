@@ -23,10 +23,10 @@ public interface IAPIService {
     Observable<WxNews> getWXNews(@Query("pno") int pno,
                                  @Query("ps") int ps,
                                  @Query("key") String key,
-                                 @Query("dtype") String dtype); // 微信推送
-    // 获取天气信息
+                                 @Query("dtype") String dtype);
     
-    @POST("weather/index")
+    // 获取天气信息
+    @GET("weather/index")
     Observable<WeatherInfo> getWeather(@Query("cityname") String cityname,
                                        @Query("dtype") String dtype,
                                        @Query("format") int format,
