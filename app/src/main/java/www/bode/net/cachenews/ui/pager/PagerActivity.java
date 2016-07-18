@@ -26,6 +26,7 @@ import android.widget.ImageView;
 
 import www.bode.net.cachenews.R;
 import www.bode.net.cachenews.ui.main.MainActivity;
+import www.bode.net.cachenews.ui.map.MapActivity;
 import www.bode.net.cachenews.ui.setting.SettingActivity;
 import www.bode.net.cachenews.ui.welcome.WelcomeActivity;
 
@@ -138,6 +139,11 @@ public class PagerActivity extends AppCompatActivity implements
             case R.id.welcome:
                 startActivity(new Intent(PagerActivity.this,
                                          WelcomeActivity.class));
+                break;
+            case R.id.map:
+                startActivity(new Intent(PagerActivity.this,
+                                         MapActivity.class));
+                break;
         }
         return true;
     }
