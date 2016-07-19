@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,7 +24,9 @@ import www.bode.net.cachenews.request.Request;
 /**
  * fragment Created by Liu on 2016-07-01.
  */
-public class PagerFragment extends Fragment implements Request.RequestListener {
+public class PagerFragment extends Fragment implements
+                           Request.RequestListener,
+                           SwipeRefreshLayout.OnRefreshListener {
     private static final String APP_KEY = "9f8938b97cbee96a7d0005d172b9db94";
     
     private Request request;
@@ -31,6 +34,8 @@ public class PagerFragment extends Fragment implements Request.RequestListener {
     private List<WxNews.ResultBean.ListBean> list;
     
     private RecyclerAdapter adapter;
+    
+    private SwipeRefreshLayout refresh;
     
     @Nullable
     @Override
@@ -44,6 +49,8 @@ public class PagerFragment extends Fragment implements Request.RequestListener {
         request.setRequestListener(this);
         View view = inflater.inflate(R.layout.fragment_pager, container, false);
         RecyclerView recycler = (RecyclerView) view.findViewById(R.id.recycler);
+        refresh = ((SwipeRefreshLayout) view.findViewById(R.id.refresh_pager));
+        refresh.setOnRefreshListener(this);
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new RecyclerAdapter(getContext(), list);
         recycler.setAdapter(adapter);
@@ -58,7 +65,6 @@ public class PagerFragment extends Fragment implements Request.RequestListener {
             }
         });
         recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            int pager = 1;
             
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView,
@@ -67,15 +73,18 @@ public class PagerFragment extends Fragment implements Request.RequestListener {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                     && ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition()
                        + 1 == recyclerView.getAdapter().getItemCount()) {
-                    request.requestUrl(request.requestAPI("http://v.juhe.cn/")
-                                              .getWXNews(++pager,
-                                                         20,
-                                                         APP_KEY,
-                                                         null));
+                    requestNews();
                 }
             }
-        });
-        return view;
+            
+        });return view;
+
+    }
+    
+    private void requestNews() {
+        int pager = 1;
+        request.requestUrl(request.requestAPI("http://v.juhe.cn/")
+                                  .getWXNews(++pager, 20, APP_KEY, null));
     }
     
     @Override
@@ -90,10 +99,21 @@ public class PagerFragment extends Fragment implements Request.RequestListener {
         WxNews news = (WxNews) o;
         list.addAll(news.getResult().getList());
         adapter.notifyDataSetChanged();
+        refresh.setRefreshing(false);
     }
     
     @Override
     public void failed() {
         Toast.makeText(getContext(), "请求失败", Toast.LENGTH_SHORT).show();
+    }
+    
+    /**
+     * 下拉刷新数据
+     */
+    @Override
+    public void onRefresh() {
+        list.clear();
+        adapter.notifyDataSetChanged();
+        requestNews();
     }
 }

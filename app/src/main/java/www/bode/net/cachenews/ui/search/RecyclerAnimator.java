@@ -8,7 +8,7 @@
  * KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package www.bode.net.cachenews.ui.main;
+package www.bode.net.cachenews.ui.search;
 
 import android.support.annotation.NonNull;
 import android.support.v4.animation.AnimatorCompatHelper;

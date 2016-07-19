@@ -25,10 +25,9 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import www.bode.net.cachenews.R;
-import www.bode.net.cachenews.ui.main.MainActivity;
 import www.bode.net.cachenews.ui.map.MapActivity;
+import www.bode.net.cachenews.ui.search.SearchActivity;
 import www.bode.net.cachenews.ui.setting.SettingActivity;
-import www.bode.net.cachenews.ui.welcome.WelcomeActivity;
 
 /**
  * viewpager+tab Created by Liu on 2016-07-01.
@@ -110,6 +109,9 @@ public class PagerActivity extends AppCompatActivity implements
         isOpening = false;
     }
     
+    /**
+     * 抽屉导航监听
+     */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -133,12 +135,8 @@ public class PagerActivity extends AppCompatActivity implements
                 break;
             case R.id.tel:
                 startActivity(new Intent(PagerActivity.this,
-                                         MainActivity.class));
+                                         SearchActivity.class));
                 overridePendingTransition(R.anim.scale_out, R.anim.scale_in);
-                break;
-            case R.id.welcome:
-                startActivity(new Intent(PagerActivity.this,
-                                         WelcomeActivity.class));
                 break;
             case R.id.map:
                 startActivity(new Intent(PagerActivity.this,
@@ -148,6 +146,9 @@ public class PagerActivity extends AppCompatActivity implements
         return true;
     }
     
+    /**
+     * 圆形浮动菜单栏监听
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -163,7 +164,7 @@ public class PagerActivity extends AppCompatActivity implements
                 break;
             case R.id.menu_main:
                 startActivity(new Intent(PagerActivity.this,
-                                         MainActivity.class));
+                                         SearchActivity.class));
                 break;
             case R.id.menu_mine:
                 startActivity(new Intent(PagerActivity.this,

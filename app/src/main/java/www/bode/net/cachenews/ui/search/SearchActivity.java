@@ -1,10 +1,9 @@
-package www.bode.net.cachenews.ui.main;
+package www.bode.net.cachenews.ui.search;
 
 import java.util.List;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,15 +11,14 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import rx.Observable;
 import www.bode.net.cachenews.R;
 import www.bode.net.cachenews.model.News;
 import www.bode.net.cachenews.request.Request;
 
-public class MainActivity extends AppCompatActivity implements
+public class SearchActivity extends AppCompatActivity implements
                           AppBarLayout.OnOffsetChangedListener,
                           Request.RequestListener,
-                          MainAdapter.OnItemClickListener {
+                          SearchAdapter.OnItemClickListener {
     private EditText search;
     
     private AppBarLayout appbar;
@@ -33,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements
     
     private boolean isRequest = false;
     
-    private MainAdapter adapter;
+    private SearchAdapter adapter;
     
     private static final String APP_KEY = "56fa863926e60793dc9a2b03d7de64f0";
     
@@ -82,8 +80,8 @@ public class MainActivity extends AppCompatActivity implements
     public void succeed(Object o) {
         News news = (News) o;
         List<News.ResultBean> resultBean = news.getResult();
-        adapter = new MainAdapter(resultBean);
-        recycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        adapter = new SearchAdapter(resultBean);
+        recycler.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
         RecyclerAnimator animator = new RecyclerAnimator();
         recycler.setItemAnimator(animator);
         adapter.setOnItemClickListener(this);
@@ -93,13 +91,13 @@ public class MainActivity extends AppCompatActivity implements
     
     @Override
     public void failed() {
-        Toast.makeText(MainActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+        Toast.makeText(SearchActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
     }
     
     @Override
     public void onItemClick(int position) {
         adapter.notifyItemRemoved(position);
-        Toast.makeText(MainActivity.this, position + "", Toast.LENGTH_SHORT)
+        Toast.makeText(SearchActivity.this, position + "", Toast.LENGTH_SHORT)
              .show();
     }
 }

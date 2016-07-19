@@ -1,4 +1,4 @@
-package www.bode.net.cachenews.ui.main;
+package www.bode.net.cachenews.ui.search;
 
 import java.util.List;
 
@@ -18,14 +18,14 @@ import www.bode.net.cachenews.model.News;
 /**
  * 新闻数据适配器 Created by Liu on 2016-06-30.
  */
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
     private Context context;
     
     private List<News.ResultBean> mNewses;
     
     public OnItemClickListener onItemClickListener;
     
-    public MainAdapter(List<News.ResultBean> newses) {
+    public SearchAdapter(List<News.ResultBean> newses) {
         this.mNewses = newses;
     }
     
