@@ -2,22 +2,35 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'lrcache'
+            keyPassword 'lr1991'
+            storeFile file('E:/lrcache/lrcache.jks')
+            storePassword 'lr1991'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
-
     defaultConfig {
         applicationId "www.bode.net.cachenews"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        signingConfig signingConfigs.config
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
+
 }
 
 dependencies {
@@ -36,4 +49,5 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile files('libs/baidumapapi_base_v4_0_0.jar')
     compile files('libs/baidumapapi_cloud_v4_0_0.jar')
+    compile files('libs/locSDK_6.23.jar')
 }

@@ -28,7 +28,7 @@ public class WelcomeActivity extends AppCompatActivity
                                                                  new int[] { R.mipmap.ic_liuss1,
                                                                              R.mipmap.ic_liuss2,
                                                                              R.mipmap.ic_liuss3,
-                                                                             0 });
+                                                                             R.mipmap.ic_liuss1 });
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(this);
     }
