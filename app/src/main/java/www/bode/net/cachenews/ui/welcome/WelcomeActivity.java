@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import www.bode.net.cachenews.R;
+import www.bode.net.cachenews.ui.account.LoginActivity;
 import www.bode.net.cachenews.ui.pager.PagerActivity;
 
 public class WelcomeActivity extends AppCompatActivity
@@ -45,7 +46,7 @@ public class WelcomeActivity extends AppCompatActivity
               "offset: " + positionOffset + "、" + positionOffsetPixels);
         if (position == 2 && positionOffsetPixels > 500) {
             startActivity(new Intent(WelcomeActivity.this,
-                                     PagerActivity.class));
+                                     LoginActivity.class));
             finish();
         }
         
