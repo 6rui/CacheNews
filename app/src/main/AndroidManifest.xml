@@ -70,7 +70,8 @@
 
         <activity
             android:name=".ui.account.LoginActivity"
-            android:label="@string/title_activity_login" />
+            android:label="@string/title_activity_login"
+            android:launchMode="singleTask" />
     </application>
 
 </manifest>

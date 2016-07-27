@@ -3,10 +3,14 @@ package www.bode.net.cachenews.ui.account;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.LayoutInflaterCompat;
+import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -19,8 +23,11 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
+import android.util.AttributeSet;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -73,12 +80,12 @@ public class LoginActivity extends AppCompatActivity
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTypeFace();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-        
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -101,9 +108,36 @@ public class LoginActivity extends AppCompatActivity
                 attemptLogin();
             }
         });
-        
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+    
+    /**
+     * 修改本页字体
+     */
+    private void setTypeFace() {
+        LayoutInflaterCompat.setFactory(LayoutInflater.from(this),
+                                        new LayoutInflaterFactory() {
+                                            @Override
+                                            public View onCreateView(View parent,
+                                                                     String name,
+                                                                     Context context,
+                                                                     AttributeSet attrs) {
+                                                AppCompatDelegate delegate =
+                                                                           getDelegate();
+                                                View view =
+                                                          delegate.createView(parent,
+                                                                              name,
+                                                                              context,
+                                                                              attrs);
+                                                
+                                                if (view != null
+                                                    && (view instanceof EditText)) {
+                                                    view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                                                }
+                                                return view;
+                                            }
+                                        });
     }
     
     private void populateAutoComplete() {
