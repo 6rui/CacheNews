@@ -49,7 +49,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="ED47gSsuuAWV0Z9fQqoy2o7WCoTq1Xk3" />
 
-        <activity android:name=".ui.welcome.WelcomeActivity">
+        <activity android:name=".ui.banner.BannerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -72,6 +72,7 @@
             android:name=".ui.account.LoginActivity"
             android:label="@string/title_activity_login"
             android:launchMode="singleTask" />
+        <!--<activity android:name=".ui.banner.BannerActivity"></activity>-->
     </application>
 
 </manifest>
