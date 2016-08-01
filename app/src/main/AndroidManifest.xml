@@ -49,7 +49,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="ED47gSsuuAWV0Z9fQqoy2o7WCoTq1Xk3" />
 
-        <activity android:name=".ui.banner.BannerActivity">
+        <activity android:name=".ui.welcome.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -62,17 +62,17 @@
         <activity android:name=".ui.we.weMemory" />
         <activity android:name=".ui.pager.NewsDetailActivity" />
         <activity android:name=".ui.map.MapActivity" />
+        <activity android:name=".ui.banner.BannerActivity" />
+        <activity android:name=".ui.any.AnyActivity" />
+        <activity
+            android:name=".ui.account.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:launchMode="singleTask" />
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
-
-        <activity
-            android:name=".ui.account.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:launchMode="singleTask" />
-        <!--<activity android:name=".ui.banner.BannerActivity"></activity>-->
     </application>
 
 </manifest>
