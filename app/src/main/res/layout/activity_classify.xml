@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
@@ -16,9 +15,8 @@
 
     <fragment
         android:id="@+id/fragment_classify"
+        android:name="www.bode.net.cachenews.ui.classify.ClassifyFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:name="www.bode.net.cachenews.ui.classify.ClassifyFragment"
-        tools:layout="@layout/fragment_classify" />
+        android:layout_weight="2" />
 </LinearLayout>

@@ -1,13 +1,16 @@
 package www.bode.net.cachenews.ui.classify;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
+import org.greenrobot.eventbus.EventBus;
 
 import www.bode.net.cachenews.R;
+import www.bode.net.cachenews.ui.pager.OnRecyclerItemClickListener;
 
 /**
  * 分类页面，EventBus框架实践
@@ -27,7 +30,16 @@ public class ClassifyActivity extends AppCompatActivity {
         setData();
         ClassifyAdapter adapter = new ClassifyAdapter(this, data);
         recycler.setAdapter(adapter);
-        
+        recycler.addOnItemTouchListener(new OnRecyclerItemClickListener(recycler) {
+            @Override
+            public void onItemClick(RecyclerView.ViewHolder vh) {
+                // TextView textView =
+                // (TextView) findViewById(R.id.tv_classify_fragment);
+                // textView.setText(data.get(vh.getAdapterPosition()));
+                EventBus.getDefault()
+                        .post(new String(data.get(vh.getAdapterPosition())));
+            }
+        });
     }
     
     /**
